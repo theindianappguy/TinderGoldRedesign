@@ -2,7 +2,7 @@
 
 # Here’s a Tinder Gold redesign concept for the popular dating app.
 
-UI created getting inspired from one share on behance by [DigitX](https://www.behance.net/gallery/80061363/Social-media-DIGITX)
+UI created getting inspired from one shared on behance Try Now [Android](https://drive.google.com/file/d/1_FGwn8fwBixYfWuoXCf3uHU31OfVkECK/view?usp=sharing)
 
 More things will be added as well so make sure to star the project
 
@@ -16,4 +16,7 @@ More things will be added as well so make sure to star the project
 
 ## Join Us
 * [Join Our Facebook Group](https://www.facebook.com/groups/519517995532897/) - I share a lot of value in it
+
+## Credits
+[DigitX](https://www.behance.net/gallery/80061363/Social-media-DIGITX)
 
