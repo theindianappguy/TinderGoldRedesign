@@ -4,7 +4,7 @@
 
 UI created getting inspired from one share on behance by [DigitX](https://www.behance.net/gallery/80061363/Social-media-DIGITX)
 
-Project is under development more things are getting added
+More things will be added as well so make sure to star the project
 
 ## Show Support
 * [Recommend Me On LinkedIn](https://www.linkedin.com/in/lamsanskar/) - I will realy Appriciate this
