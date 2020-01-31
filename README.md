@@ -3,6 +3,7 @@
 # Here’s a Tinder Gold redesign concept for the popular dating app.
 
 UI created getting inspired from one shared on behance Try Now [Android](https://drive.google.com/file/d/1_FGwn8fwBixYfWuoXCf3uHU31OfVkECK/view?usp=sharing)
+| [IOS](https://drive.google.com/file/d/1UviEcWGVAsV1_K9YMRdevrZRnyascnSr/view?usp=sharing)
 
 More things will be added as well so make sure to star the project
 
