@@ -251,7 +251,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                         ),
                       ),
                       SizedBox(
-                        height: 16,
+                        height: 8,
                       ),
                       /// ----
                       ListView.builder(

@@ -1,10 +1,78 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tinder_clone/model/ChatModel.dart';
 import 'package:tinder_clone/views/conversation_screen.dart';
 
-class ChatScreen extends StatelessWidget {
-  int tabSelected = 3;
+class ChatScreen extends StatefulWidget {
 
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  int tabSelected = 3;
+  List<ChatModel> chats = new List<ChatModel>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    /// Filling up some data ///
+
+    //1
+    ChatModel chatModel = new ChatModel();
+    chatModel.setUserName("Sanskar");
+    chatModel.setUserPicAssetPath("assets/images/profilepic.jpg");
+    chatModel.setLastMessage("This is strange i can send message to myself");
+    chatModel.setTime("2 hours");
+    chatModel.setUnreadMessage(4);
+    chatModel.setLastMessageSendByMe(false);
+    chats.add(chatModel);
+
+    //2
+    ChatModel chatModel2 = new ChatModel();
+    chatModel2.setUserName("Jessica");
+    chatModel2.setUserPicAssetPath("assets/images/profilepic2.png");
+    chatModel2.setLastMessage("Hahaha, yeah!");
+    chatModel2.setTime("22 min");
+    chatModel2.setUnreadMessage(0);
+    chatModel2.setLastMessageSendByMe(true);
+    chats.add(chatModel2);
+
+    //3
+    ChatModel chatModel3 = new ChatModel();
+    chatModel3.setUserName("Adrianne");
+    chatModel3.setUserPicAssetPath("assets/images/profilepic3.png");
+    chatModel3.setLastMessage("Let's catch up sometime sanskar");
+    chatModel3.setTime("2 min");
+    chatModel3.setUnreadMessage(0);
+    chatModel3.setLastMessageSendByMe(false);
+    chats.add(chatModel3);
+
+    //4
+    ChatModel chatModel4 = new ChatModel();
+    chatModel4.setUserName("Marlene");
+    chatModel4.setUserPicAssetPath("assets/images/profilepic4.png");
+    chatModel4.setLastMessage("Hey Sanskar how are you?");
+    chatModel4.setTime("22 min");
+    chatModel4.setUnreadMessage(0);
+    chatModel4.setLastMessageSendByMe(false);
+    chats.add(chatModel4);
+
+    //5
+    ChatModel chatModel5 = new ChatModel();
+    chatModel5.setUserName("Samanta");
+    chatModel5.setUserPicAssetPath("assets/images/profilepic5.png");
+    chatModel5.setLastMessage("That's awesome sanskar");
+    chatModel5.setTime("15 minutes");
+    chatModel5.setUnreadMessage(0);
+    chatModel5.setLastMessageSendByMe(false);
+    chats.add(chatModel5);
+
+    print(chats.toString()+"this is the data we are saving");
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,46 +214,20 @@ class ChatScreen extends StatelessWidget {
                     SizedBox(
                       height: 16,
                     ),
-                    ChatTile(
-                      userName: "Sanskar",
-                      userPicAssetPath: "assets/images/profilepic.jpg",
-                      lastMessage: "This is strange i can send message to myself",
-                      time: "2 hours",
-                      unreadMessages: 4,
-                      lastMessageSendByMe: false,
-                    ),
-                    ChatTile(
-                      userName: "Jessica",
-                      userPicAssetPath: "assets/images/profilepic2.png",
-                      lastMessage: "Hahaha, yeah!",
-                      time: "2 hours",
-                      unreadMessages: 0,
-                      lastMessageSendByMe: true,
-                    ),
-                    ChatTile(
-                      userName: "Adrianne",
-                      userPicAssetPath: "assets/images/profilepic3.png",
-                      lastMessage: "Let's catch up sometime sanskar",
-                      time: "2 hours",
-                      unreadMessages: 11,
-                      lastMessageSendByMe: false,
-                    ),
-                    ChatTile(
-                      userName: "Marlene",
-                      userPicAssetPath: "assets/images/profilepic4.png",
-                      lastMessage: "Hey Sanskar how are you?",
-                      time: "2 hours",
-                      unreadMessages: 1,
-                      lastMessageSendByMe: false,
-                    ),
-                    ChatTile(
-                      userName: "Samanta",
-                      userPicAssetPath: "assets/images/profilepic5.png",
-                      lastMessage: "That's awesome sanskar",
-                      time: "2 hours",
-                      unreadMessages: 0,
-                      lastMessageSendByMe: false,
-                    ),
+                    ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: chats.length,
+                        itemBuilder: (context, index){
+                        return ChatTile(
+                          userName: chats[index].getUserName() ?? '',
+                          userPicAssetPath: chats[index].getUserPicAssetPath() ?? '',
+                          lastMessage: chats[index].getLastMessage() ?? '',
+                          time: chats[index].getTme() ?? '',
+                          unreadMessages: chats[index].getUnreadMessages() ?? 0,
+                          lastMessageSendByMe: chats[index].getlastMessageSendByMe() ?? false,
+                        );
+                        })
                   ],
                 ),
               )
