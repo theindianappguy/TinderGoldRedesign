@@ -14,6 +14,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
   int tabSelected = 3;
   List<ConversationModel> conversations = new List<ConversationModel>();
 
+  var textController = new TextEditingController();
+
+  String myAwesomeMessage = "";
 
   @override
   void initState() {
@@ -57,181 +60,29 @@ class _ConversationScreenState extends State<ConversationScreen> {
                       begin: FractionalOffset.topLeft,
                       end: FractionalOffset.bottomRight)),
             ),
-            Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 90,
+            LayoutBuilder(builder:
+                (BuildContext context, BoxConstraints viewportConstraints) {
+              return SingleChildScrollView(
+                  child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
                 ),
-
-                /// Tab Options ///
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Column(
                   children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: tabSelected == 1
-                                ? BoxDecoration(
-                                    borderRadius: BorderRadius.circular(60),
-                                    gradient: LinearGradient(
-                                        colors: [
-                                          const Color(0xffA2834D),
-                                          const Color(0xffBC9A5F)
-                                        ],
-                                        begin: FractionalOffset.topRight,
-                                        end: FractionalOffset.bottomLeft))
-                                : BoxDecoration(),
-                            child: Image.asset(
-                              "assets/images/profile.png",
-                              width: 35,
-                              height: 35,
-                            )),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Text(
-                          "Chat",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
                     SizedBox(
-                      width: 60,
+                      height: 90,
                     ),
-                    Column(
+
+                    /// Tab Options ///
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: tabSelected == 1
-                              ? BoxDecoration(
-                                  borderRadius: BorderRadius.circular(60),
-                                  gradient: LinearGradient(
-                                      colors: [
-                                        const Color(0xffA2834D),
-                                        const Color(0xffBC9A5F)
-                                      ],
-                                      begin: FractionalOffset.topRight,
-                                      end: FractionalOffset.bottomLeft))
-                              : BoxDecoration(),
-                          child: Image.asset(
-                            "assets/images/tindergoldlogo.png",
-                            width: 35,
-                            height: 35,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Text(
-                          "Pairs",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 60,
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Container(
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(60),
-                                gradient: LinearGradient(
-                                    colors: [
-                                      const Color(0xffA2834D),
-                                      const Color(0xffBC9A5F)
-                                    ],
-                                    begin: FractionalOffset.topRight,
-                                    end: FractionalOffset.bottomLeft)),
-                            child: Image.asset(
-                              "assets/images/chatbubble.png",
-                              width: 30,
-                              height: 30,
-                            )),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Text(
-                          "Activities",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  child: Column(
-                    children: <Widget>[
-                      /// Header ///
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 8),
-                        child: Column(
+                        Column(
                           children: <Widget>[
                             Container(
-                              height: 0.2,
-                              color: Colors.white70,
-                            ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 60.0,
-                                  height: 60.0,
-                                  decoration: new BoxDecoration(
-                                    color: const Color(0xff213A50),
-                                    image: new DecorationImage(
-                                      image: AssetImage(widget.profilePicPath),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: new BorderRadius.all(
-                                        new Radius.circular(30.0)),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 16,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      widget.name,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(
-                                      height: 4,
-                                    ),
-                                    Text(
-                                      "Online",
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.white70),
-                                    ),
-                                    // TODO add Spacer(),
-                                  ],
-                                ),
-                                Spacer(),
-                                Container(
-                                    padding: EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
+                                padding: EdgeInsets.all(10),
+                                decoration: tabSelected == 1
+                                    ? BoxDecoration(
                                         borderRadius: BorderRadius.circular(60),
                                         gradient: LinearGradient(
                                             colors: [
@@ -239,36 +90,204 @@ class _ConversationScreenState extends State<ConversationScreen> {
                                               const Color(0xffBC9A5F)
                                             ],
                                             begin: FractionalOffset.topRight,
-                                            end: FractionalOffset.bottomLeft)),
-                                    child: Image.asset(
-                                      "assets/images/call_icon.png",
-                                      width: 20,
-                                      height: 20,
-                                    )),
-                              ],
+                                            end: FractionalOffset.bottomLeft))
+                                    : BoxDecoration(),
+                                child: Image.asset(
+                                  "assets/images/profile.png",
+                                  width: 35,
+                                  height: 35,
+                                )),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              "Chat",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),
+                        SizedBox(
+                          width: 60,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: tabSelected == 1
+                                  ? BoxDecoration(
+                                      borderRadius: BorderRadius.circular(60),
+                                      gradient: LinearGradient(
+                                          colors: [
+                                            const Color(0xffA2834D),
+                                            const Color(0xffBC9A5F)
+                                          ],
+                                          begin: FractionalOffset.topRight,
+                                          end: FractionalOffset.bottomLeft))
+                                  : BoxDecoration(),
+                              child: Image.asset(
+                                "assets/images/tindergoldlogo.png",
+                                width: 35,
+                                height: 35,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              "Pairs",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 60,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Container(
+                                padding: EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(60),
+                                    gradient: LinearGradient(
+                                        colors: [
+                                          const Color(0xffA2834D),
+                                          const Color(0xffBC9A5F)
+                                        ],
+                                        begin: FractionalOffset.topRight,
+                                        end: FractionalOffset.bottomLeft)),
+                                child: Image.asset(
+                                  "assets/images/chatbubble.png",
+                                  width: 30,
+                                  height: 30,
+                                )),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              "Activities",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          /// Header ///
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 8),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 0.2,
+                                  color: Colors.white70,
+                                ),
+                                SizedBox(
+                                  height: 16,
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 60.0,
+                                      height: 60.0,
+                                      decoration: new BoxDecoration(
+                                        color: const Color(0xff213A50),
+                                        image: new DecorationImage(
+                                          image:
+                                              AssetImage(widget.profilePicPath),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius: new BorderRadius.all(
+                                            new Radius.circular(30.0)),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          widget.name,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(
+                                          "Online",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white70),
+                                        ),
+                                        // TODO add Spacer(),
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Container(
+                                        padding: EdgeInsets.all(15),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(60),
+                                            gradient: LinearGradient(
+                                                colors: [
+                                                  const Color(0xffA2834D),
+                                                  const Color(0xffBC9A5F)
+                                                ],
+                                                begin:
+                                                    FractionalOffset.topRight,
+                                                end: FractionalOffset
+                                                    .bottomLeft)),
+                                        child: Image.asset(
+                                          "assets/images/call_icon.png",
+                                          width: 20,
+                                          height: 20,
+                                        )),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+
+                          /// ----
+                          ListView.builder(
+                              itemCount: conversations.length,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return ConversationTile(
+                                  sendByMe: conversations[index].getSendByMe(),
+                                  message: conversations[index].getMessage(),
+                                );
+                              })
+                        ],
                       ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      /// ----
-                      ListView.builder(
-                          itemCount: conversations.length,
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return ConversationTile(
-                              sendByMe: conversations[index].getSendByMe(),
-                              message: conversations[index].getMessage(),
-                            );
-                          })
-                    ],
-                  ),
-                )
-              ],
-            ),
+                    )
+                  ],
+                ),
+              ));
+            }),
             Container(
               height: MediaQuery.of(context).size.height,
               alignment: Alignment.bottomLeft,
@@ -301,12 +320,12 @@ class _ConversationScreenState extends State<ConversationScreen> {
                       child: Container(
                         margin: EdgeInsets.only(right: 16),
                         child: TextField(
+                          controller: textController,
+                          style: TextStyle(color: Colors.white, fontSize: 15),
                           decoration: InputDecoration(
-                            labelStyle:
-                                TextStyle(color: Colors.white, fontSize: 15),
                             hintText: "Message ...",
                             hintStyle:
-                                TextStyle(color: Colors.white, fontSize: 15),
+                            TextStyle(color: Colors.white, fontSize: 15),
                           ),
                           maxLines: 1,
                         ),
@@ -335,10 +354,15 @@ class _ConversationScreenState extends State<ConversationScreen> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          ConversationModel conversationModel3 = new ConversationModel();
-                          conversationModel3.setMessage("Lorem ipsum dolor sit amet");
-                          conversationModel3.setSendByMe(true);
-                          conversations.add(conversationModel3);
+                          myAwesomeMessage = textController.text;
+                          print("pajji aee lo"+ myAwesomeMessage);
+                          ConversationModel conversatModel3 =
+                              new ConversationModel();
+                          conversatModel3.setMessage(myAwesomeMessage);
+                          conversatModel3.setSendByMe(true);
+                          conversations.add(conversatModel3);
+                          FocusScope.of(context).unfocus();
+                          textController.text = "";
                         });
                       },
                       child: Container(
@@ -382,6 +406,8 @@ class ConversationTile extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 8),
       alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
+        margin:
+            sendByMe ? EdgeInsets.only(left: 30) : EdgeInsets.only(right: 30),
         padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -398,8 +424,8 @@ class ConversationTile extends StatelessWidget {
                     topRight: Radius.circular(23),
                     bottomRight: Radius.circular(23))),
         child: Text(
-          "Lorem ipsum dolor sit amet",
-          textAlign: sendByMe ? TextAlign.start : TextAlign.end,
+          message,
+          textAlign: TextAlign.start,
           style: TextStyle(
               color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300),
         ),

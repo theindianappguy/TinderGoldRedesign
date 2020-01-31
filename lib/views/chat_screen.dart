@@ -4,7 +4,6 @@ import 'package:tinder_clone/model/ChatModel.dart';
 import 'package:tinder_clone/views/conversation_screen.dart';
 
 class ChatScreen extends StatefulWidget {
-
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -70,9 +69,9 @@ class _ChatScreenState extends State<ChatScreen> {
     chatModel5.setLastMessageSendByMe(false);
     chats.add(chatModel5);
 
-    print(chats.toString()+"this is the data we are saving");
-
+    print(chats.toString() + "this is the data we are saving");
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -203,33 +202,53 @@ class _ChatScreenState extends State<ChatScreen> {
                 height: 16,
               ),
 
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 8),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 0.2,
-                      color: Colors.white70,
+              Expanded(
+                flex: 1,
+                child: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints viewportConstraints) {
+                  return SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: viewportConstraints.maxHeight,
+                      ),
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              height: 0.2,
+                              color: Colors.white70,
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: chats.length,
+                                itemBuilder: (context, index) {
+                                  return ChatTile(
+                                    userName: chats[index].getUserName() ?? '',
+                                    userPicAssetPath:
+                                        chats[index].getUserPicAssetPath() ??
+                                            '',
+                                    lastMessage:
+                                        chats[index].getLastMessage() ?? '',
+                                    time: chats[index].getTme() ?? '',
+                                    unreadMessages:
+                                        chats[index].getUnreadMessages() ?? 0,
+                                    lastMessageSendByMe:
+                                        chats[index].getlastMessageSendByMe() ??
+                                            false,
+                                  );
+                                })
+                          ],
+                        ),
+                      ),
                     ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: chats.length,
-                        itemBuilder: (context, index){
-                        return ChatTile(
-                          userName: chats[index].getUserName() ?? '',
-                          userPicAssetPath: chats[index].getUserPicAssetPath() ?? '',
-                          lastMessage: chats[index].getLastMessage() ?? '',
-                          time: chats[index].getTme() ?? '',
-                          unreadMessages: chats[index].getUnreadMessages() ?? 0,
-                          lastMessageSendByMe: chats[index].getlastMessageSendByMe() ?? false,
-                        );
-                        })
-                  ],
-                ),
+                  );
+                }),
               )
             ],
           )
@@ -240,23 +259,29 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 class ChatTile extends StatelessWidget {
-
   final String userName, userPicAssetPath, lastMessage, time;
   int unreadMessages = 0;
   bool lastMessageSendByMe = false;
-  ChatTile({this.userName,this.userPicAssetPath,this.lastMessage,this.time,
-    this.unreadMessages,this.lastMessageSendByMe});
+
+  ChatTile(
+      {this.userName,
+      this.userPicAssetPath,
+      this.lastMessage,
+      this.time,
+      this.unreadMessages,
+      this.lastMessageSendByMe});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) => ConversationScreen(
-              name: userName,
-              profilePicPath: userPicAssetPath,
-            )
-        ));
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ConversationScreen(
+                      name: userName,
+                      profilePicPath: userPicAssetPath,
+                    )));
       },
       child: Container(
         padding: EdgeInsets.only(bottom: 16),
@@ -274,18 +299,24 @@ class ChatTile extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 borderRadius: new BorderRadius.all(new Radius.circular(40.0)),
-                border: unreadMessages > 0 ? Border.all(
-                  color: Color(0xffD9B372),
-                  width: 2.0,
-                ):null,
+                border: unreadMessages > 0
+                    ? Border.all(
+                        color: Color(0xffD9B372),
+                        width: 2.0,
+                      )
+                    : null,
               ),
             ),
-            SizedBox(width: 16,),
+            SizedBox(
+              width: 16,
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment:  MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 8,),
+                SizedBox(
+                  height: 8,
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width - 136,
                   alignment: Alignment.topLeft,
@@ -297,62 +328,87 @@ class ChatTile extends StatelessWidget {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 17,
-                        fontWeight: FontWeight.w400),
+                            fontWeight: FontWeight.w400),
                       ),
-                      SizedBox(width: 6,),
-                      unreadMessages > 0 ? Row(
-                        children: <Widget>[
-                          Container(
-                            width: 6,
-                            height: 6,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xffD9B372),
-                            ),
-                          ),
-                          SizedBox(width: 6,),
-                          Text(
-                            "$unreadMessages",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14),
-                          ),
-                        ],
-                      ):Container(),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      unreadMessages > 0
+                          ? Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 6,
+                                  height: 6,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color(0xffD9B372),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 6,
+                                ),
+                                Text(
+                                  "$unreadMessages",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14),
+                                ),
+                              ],
+                            )
+                          : Container(),
                       // TODO add Spacer(),
                       Spacer(),
-                      Text(time, style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white70
-                      ),),
+                      Text(
+                        time,
+                        style: TextStyle(fontSize: 12, color: Colors.white70),
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(height: 8,),
+                SizedBox(
+                  height: 8,
+                ),
                 Row(
                   children: <Widget>[
-                    lastMessageSendByMe ? Row(
-                      children: <Widget>[
-                        Image.asset(
-                          "assets/images/back_arrow.png",width: 14,height: 14,),
-                        SizedBox(width: 8,),
-                      ],
-                    ):Container(),
+                    lastMessageSendByMe
+                        ? Row(
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/images/back_arrow.png",
+                                width: 14,
+                                height: 14,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                            ],
+                          )
+                        : Container(),
                     Container(
                       width: MediaQuery.of(context).size.width - 158,
-                      child: Text(lastMessage,maxLines: 3, style: TextStyle(
-                        fontSize: 14,
-                        color: unreadMessages > 0 ? Colors.white : Colors.white70,
-                      ),
+                      child: Text(
+                        lastMessage,
+                        maxLines: 3,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: unreadMessages > 0
+                              ? Colors.white
+                              : Colors.white70,
+                        ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 20,),
-                Container(width: MediaQuery.of(context).size.width - 136,
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width - 136,
                   height: 0.2,
-                  color: Colors.white70,),
-                SizedBox(height: 8,)
+                  color: Colors.white70,
+                ),
+                SizedBox(
+                  height: 8,
+                )
               ],
             )
           ],
