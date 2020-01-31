@@ -174,7 +174,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
                   height: 16,
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height - 106,
                   child: Column(
                     children: <Widget>[
                       /// Header ///
@@ -257,6 +256,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
                       /// ----
                       ListView.builder(
                           itemCount: conversations.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return ConversationTile(
                               sendByMe: conversations[index].getSendByMe(),
